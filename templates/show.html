@@ -1,0 +1,95 @@
+{% extends "template.html" %}
+{% block body %}
+
+<div class="container">
+
+<a href="/" style="text-decoration: none;"><h1>ImgPy</h1></a>
+<h2 >Yet Another Flask Image Hosting</h2>
+
+<p id="imagename">{{filename}}</p>
+    
+<div class="row">
+  <div class="col-md-6">
+	   <a href="{{'http://sambuca.dlinkddns.com'+img}}"><img id="showImg" src="{{'http://sambuca.dlinkddns.com'+img}}" class="img-responsive" alt="{{filename}}" ></a>   
+  </div>
+
+      <div class="col-md-6">
+          <div class="form-group">
+                <label for="thislinkvalue">Link</label>
+                <div class="input-group">
+                    <div class="input-group-addon" id="thislink"><i class="fa fa-clipboard" style="cursor:default; color: #1F2632;"></i></div>
+                    <input type="email" class="form-control" id="thislinkvalue" value="{{'http://sambuca.dlinkddns.com/show/'+imgurl}}" readonly="">
+                </div>
+
+                <label for="directlinkvalue">Direct link</label>
+                <div class="input-group">
+                    <div class="input-group-addon" id="directlink"><i class="fa fa-clipboard" style="cursor:default; color: #1F2632;"></i></div>
+                    <input type="email" class="form-control" id="directlinkvalue" value="{{'http://sambuca.dlinkddns.com'+img}}" readonly="">
+                </div>
+          </div>
+      </div>
+</div>
+
+</div>
+
+{% include 'bot.html' %}
+
+<script type="text/javascript">
+
+$(function() {
+    $( "#thislinkvalue, #directlinkvalue" ).click(function() {
+        $(this).select()
+    });
+});
+
+$(function() {
+    $( "#thislink, #directlink" ).click(function() {
+        copyToClipboard(document.getElementById($(this).get(0).id+'value'));
+    });
+});
+
+function copyToClipboard(elem) {
+
+    var targetId = "_hiddenCopyText_";
+    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+    var origSelectionStart, origSelectionEnd;
+    if (isInput) {
+        target = elem;
+        origSelectionStart = elem.selectionStart;
+        origSelectionEnd = elem.selectionEnd;
+    } else {
+        target = document.getElementById(targetId);
+        if (!target) {
+            var target = document.createElement("textarea");
+            target.style.position = "absolute";
+            target.style.left = "-9999px";
+            target.style.top = "0";
+            target.id = targetId;
+            document.body.appendChild(target);
+        }
+        target.textContent = elem.textContent;
+    }
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+    
+    var succeed;
+    try {
+    	  succeed = document.execCommand("copy");
+    } catch(e) {
+        succeed = false;
+    }
+    if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+    }
+    
+    if (isInput) {
+        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+    } else {
+        target.textContent = "";
+    }
+    return succeed;
+}
+</script>
+
+{% endblock %}

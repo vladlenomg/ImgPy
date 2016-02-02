@@ -1,0 +1,62 @@
+{% extends "template.html" %}
+{% block body %}
+
+
+
+<div id="fullpage">
+
+    <div class="section " id="section1" >
+        <div class="container">
+        <header>
+            <a href="/" style="text-decoration: none;"><h1>ImgPy</h1></a>
+            <h2 style="margin-top:3%;">Yet Another Flask Image Hosting</h2>
+
+                            <form action="" method=post enctype=multipart/form-data >
+                                    <div class="fileUpload btn btn-primary">
+                                        <span><i class="fa fa-cloud-upload" ></i>  Upload</span>
+                                        <input type="file" name=file class="upload" onchange="this.form.submit()" />
+                                    </div>
+                            </form>
+
+            <div class="scroll-down">Recently Uploaded<br>
+                <i class="fa fa-chevron-down"></i>
+            </div>
+
+            </header>
+
+        </div>
+    </div>
+
+
+    <div class="section " id="section2" >
+        <div class="container">
+            <h1><div class="recentrly">Recently Uploaded</div></h1>
+
+            <div id="recently">
+                <div class="row">
+
+                    {% for x in recent %}
+                        <div class="col-xs-6 col-md-3">
+                          <a href="{{'/show/'+x[1]}}" class="thumbnail">
+                          <img src="{{'/pics/thumbnails/'+x[0]+'.jpg'}}" alt="{{x[1]}}" >
+                          </a>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        {% include 'bot.html' %}
+    </div>
+
+</div>
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            $('#fullpage').fullpage({
+                verticalCentered: false,
+                scrollOverflow: true
+            });
+        });
+</script>
+{% endblock %}
