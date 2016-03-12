@@ -2,7 +2,7 @@
 Yet another simple image hosting written with Flask
 
 # Resources
-- [Flusk](http://flask.pocoo.org/)
+- [Flask](http://flask.pocoo.org/)
 - [short_url](https://pypi.python.org/pypi/short_url)
 - [Pillow](http://pillow.readthedocs.org/en/3.0.x/index.html)
 - [SQLite](https://www.sqlite.org/)
